@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% load staticfiles %}
+
+
+{% block content %}
+
+<div class="container" align="center">
+  <a class="btn btn-primary" href="{% url 'comedians:register_comedians' %}">Register</a>
+</div>
+
+<hr><br>
+
+<div class="container">
+  {{ all_com }}
+  <br>
+
+  {% for i in all_com %}
+    {{i.firstname}}
+    <br>
+  {% endfor %}
+</div>
+
+{% endblock %}
