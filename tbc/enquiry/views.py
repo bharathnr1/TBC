@@ -19,19 +19,21 @@ def book(request):
         form = BookForm(request.POST)
         if form.is_valid():
             b = form.save()
-            b_details = b.__dict__
+            #b_details = b.__dict__
+
+            new_request = str(Book.objects.filter(id=b.id).values())
 
             email_from = settings.EMAIL_HOST_USER
             email_to = b.email
             email_admin = settings.EMAIL_ADMIN
 
             # turn the dict into a set of strings
-            content = {"%s: %s" % (key, value) for (key, value) in b_details.items()}
+            #content = {"%s: %s" % (key, value) for (key, value) in b_details.items()}
             # turn those strings into 1 block of text separated by newlines
-            content = "\n".join(content)
+            #content = "\n".join(content)
 
             message1 = ('Thank you for your interest!', 'We will review the details and get back to you', email_from, [email_to])
-            message2 = ('New booking request', content , email_from, [email_admin])
+            message2 = ('New booking request', new_request , email_from, [email_admin])
             send_mass_mail((message1, message2), fail_silently=False)
 
             return render(request, 'enquiry/thankyou.html', {'b': b})
@@ -46,22 +48,24 @@ def produce(request):
         form = ProduceForm(request.POST)
         if form.is_valid():
             p = form.save()
-            p_details = p.__dict__
+            #p_details = p.__dict__
+            #print(p.id)
+            new_request = str(Produce.objects.filter(id=p.id).values())
 
             email_from = settings.EMAIL_HOST_USER
             email_to = p.email
             email_admin = settings.EMAIL_ADMIN
 
             # turn the dict into a set of strings
-            content = {"%s: %s" % (key, value) for (key, value) in p_details.items()}
+            #content = {"%s: %s" % (key, value) for (key, value) in p_details.items()}
             # turn those strings into 1 block of text separated by newlines
-            content = "\n".join(content)
+            #content = "\n".join(content)
 
             message1 = ('Thank you for your interest!', 'We will review the details and get back to you', email_from, [email_to])
-            message2 = ('New booking request', content , email_from, [email_admin])
+            message2 = ('New booking request', new_request , email_from, [email_admin])
             send_mass_mail((message1, message2), fail_silently=False)
 
-            return redirect('thankyou')
+            return render(request, 'enquiry/thankyou.html')
     else:
         form = ProduceForm()
 

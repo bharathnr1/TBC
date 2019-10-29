@@ -9,7 +9,7 @@ from django.core.mail import send_mail, send_mass_mail
 
 def register_comedians(request):
     if request.method == 'POST':
-        form = RegisterComedianForm(request.POST)
+        form = RegisterComedianForm(request.POST, request.FILES)
         if form.is_valid():
             r = form.save()
 
@@ -24,9 +24,9 @@ def register_comedians(request):
 
             message1 = ('Thank you for your interest!', 'We will get back to you.', email_from, [email_to])
             message2 = ('New comedian registration', content , email_from, [email_admin])
-            send_mass_mail((message1, message2), fail_silently=False)
+            #send_mass_mail((message1, message2), fail_silently=False)
 
-        return render(request, 'comedians/thankyou.html', {'r': r})
+            return render(request, 'comedians/thankyou.html', {'r': r})
 
     else:
         form = RegisterComedianForm()
@@ -35,6 +35,9 @@ def register_comedians(request):
 
 
 def view_comedians(request):
-    AllComedians = RegisterComedian()
-    all_com = AllComedians.get_all_objects()
-    return render(request, 'comedians/view_comedians.html',{'all_com': all_com})
+    all_comedians = RegisterComedian.objects.values()
+    print(all_comedians)
+    # Need to write specific for loops depending on what kind of data we want to display
+    # See comments.txt for more details - point 3
+
+    return render(request, 'comedians/view_comedians.html',{'all_comedians': all_comedians})
