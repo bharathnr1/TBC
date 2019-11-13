@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'enquiry',
     'comedians',
+    'events',
     'bootstrap4',
 ]
 
@@ -120,6 +121,8 @@ USE_L10N = True
 
 USE_TZ = True
 
+#LOGIN REDIRECT
+LOGIN_REDIRECT_URL = '/'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
@@ -127,6 +130,11 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'root_static')
 
+
+
+#Media Files
+MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 
 #EMAIL SETTINGS

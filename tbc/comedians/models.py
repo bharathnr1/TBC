@@ -1,5 +1,4 @@
 from django.db import models
-
 # Create your models here.
 
 class RegisterComedian(models.Model):
@@ -8,7 +7,7 @@ class RegisterComedian(models.Model):
     about = models.TextField(max_length = 200, blank = False)
     email = models.CharField(max_length = 200, blank = False)
     phoneno = models.CharField(max_length = 13, blank = False)
-    profile_pic = models.ImageField(upload_to='profile_pic', blank = True)
+    profile_pic = models.ImageField(upload_to='profile_pic/', default = 'default_pp.jpg', blank = True)
     videos = models.URLField(blank = True)
     fb_link = models.URLField(blank = True)
     insta_link = models.URLField(blank = True)
